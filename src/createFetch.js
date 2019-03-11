@@ -22,7 +22,11 @@ function createFetch(fetch, { baseUrl, cookie, schema, graphql }) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      ...(cookie ? { Cookie: cookie } : null),
+      ...(cookie
+        ? {
+            Cookie: cookie,
+          }
+        : null),
     },
   };
 
@@ -34,7 +38,9 @@ function createFetch(fetch, { baseUrl, cookie, schema, graphql }) {
       const result = await graphql(
         schema,
         query.query,
-        { request: {} }, // fill in request vars needed by graphql
+        {
+          request: {},
+        }, // fill in request vars needed by graphql
         null,
         query.variables,
       );
